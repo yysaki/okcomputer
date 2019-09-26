@@ -16,6 +16,9 @@ describe OkComputer::OkComputerController do
   # to call the old TestCase API if that's what's available (which has positional arguments)
   prepend PositionalTestCaseAPI if Rails::VERSION::MAJOR < 5
 
+  # Workaround for https://github.com/rails/rails/issues/35749#issuecomment-525083643
+  class ApplicationController < ActionController::Base
+  end
 
   routes { OkComputer::Engine.routes }
 
