@@ -26,7 +26,7 @@ module OkComputer
           allow(Neo4j::Session).to receive_message_chain("current.connection.url_prefix.to_s") { "localhost:7474" }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Connected to neo4j on localhost:7474" }
       end
 
@@ -38,7 +38,7 @@ module OkComputer
           allow(Neo4j::Session).to receive_message_chain("current.connection.head.success?").and_raise(error)
         end
 
-        it {is_expected.not_to be_successful }
+        it {is_expected.not_to be_successful_check }
         it {is_expected.to have_message "Error: #{error_message}" }
       end
     end

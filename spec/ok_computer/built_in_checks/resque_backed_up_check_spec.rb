@@ -34,7 +34,7 @@ module OkComputer
           allow(subject).to receive(:size) { threshold - 1 }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Resque queue '#{queue}' at reasonable level (#{subject.size})" }
       end
 
@@ -43,7 +43,7 @@ module OkComputer
           allow(subject).to receive(:size) { threshold }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Resque queue '#{queue}' at reasonable level (#{subject.size})" }
       end
 
@@ -52,7 +52,7 @@ module OkComputer
           allow(subject).to receive(:size) { threshold + 1 }
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Resque queue '#{subject.queue}' is #{subject.size - subject.threshold} over threshold! (#{subject.size})" }
       end
     end

@@ -11,7 +11,7 @@ module OkComputer
         check.mark_failure
       end
 
-      it { is_expected.to be_successful }
+      it { is_expected.to be_successful_check }
 
       it "has a failure message" do
         expect(subject.to_text).to match /FAILED/

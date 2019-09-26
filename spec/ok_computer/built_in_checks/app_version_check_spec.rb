@@ -14,7 +14,7 @@ module OkComputer
           expect(subject).to receive(:version).and_return(version)
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Version: #{version}" }
       end
 
@@ -24,7 +24,7 @@ module OkComputer
             and_raise(AppVersionCheck::UnknownRevision)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Unable to determine version" }
       end
     end

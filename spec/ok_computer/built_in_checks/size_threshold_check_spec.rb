@@ -42,7 +42,7 @@ module OkComputer
           allow(subject).to receive(:size) { threshold - 1 }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "#{name} at reasonable level (#{subject.size})" }
       end
 
@@ -51,7 +51,7 @@ module OkComputer
           allow(subject).to receive(:size) { threshold }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "#{name} at reasonable level (#{subject.size})" }
       end
 
@@ -60,7 +60,7 @@ module OkComputer
           allow(subject).to receive(:size) { threshold + 1 }
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "#{name} is #{subject.size - subject.threshold} over threshold! (#{subject.size})" }
       end
 
@@ -69,7 +69,7 @@ module OkComputer
           expect(subject).to receive(:size).and_raise(ArgumentError)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "The given proc MUST return a number (ArgumentError)" }
       end
 
@@ -78,7 +78,7 @@ module OkComputer
           expect(subject).to receive(:size).and_raise(TypeError)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "The given proc MUST return a number (TypeError)" }
       end
 
@@ -89,7 +89,7 @@ module OkComputer
           expect(subject).to receive(:size).and_raise(error)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "An error occurred: '#{error.message}' (#{error.class})" }
       end
     end
