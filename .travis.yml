@@ -2,7 +2,7 @@ language: ruby
 before_install:
   - ./install_bundler.sh
 env:
-  - RAILS_VERSION=6.0.0.rc2
+  - RAILS_VERSION=6.0
   - RAILS_VERSION=5.2
   - RAILS_VERSION=5.1
 rvm:
@@ -15,4 +15,4 @@ matrix:
       env: RAILS_VERSION=4.2
   exclude:
     - rvm: 2.4
-      env: RAILS_VERSION=6.0.0.rc2
+      env: RAILS_VERSION=6.0
