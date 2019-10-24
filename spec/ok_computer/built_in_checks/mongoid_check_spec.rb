@@ -48,7 +48,7 @@ module OkComputer
           expect(subject).to receive(:mongodb_name) { mongodb_name }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Connected to mongodb #{mongodb_name}" }
       end
 
@@ -57,7 +57,7 @@ module OkComputer
           expect(subject).to receive(:mongodb_name).and_raise(MongoidCheck::ConnectionFailed, error_message)
         end
 
-        it {is_expected.not_to be_successful }
+        it {is_expected.not_to be_successful_check }
         it {is_expected.to have_message "Error: '#{error_message}'" }
       end
 
@@ -67,7 +67,7 @@ module OkComputer
           expect(Mongoid::Sessions).to receive(:with_name).with(:default).and_raise(StandardError)
         end
 
-        it {is_expected.not_to be_successful }
+        it {is_expected.not_to be_successful_check }
         it {is_expected.to have_message "Error: 'undefined method `database' for Mongoid:Module'" }
       end
     end

@@ -37,7 +37,7 @@ module OkComputer
             allow(subject).to receive(:ping?).and_return(true)
           end
 
-          it { is_expected.to be_successful }
+          it { is_expected.to be_successful_check }
           it { is_expected.to have_message "Solr ping reported success" }
         end
 
@@ -46,7 +46,7 @@ module OkComputer
             allow(subject).to receive(:ping?).and_return(false)
           end
 
-          it { is_expected.not_to be_successful }
+          it { is_expected.not_to be_successful_check }
           it { is_expected.to have_message "Solr ping reported failure" }
         end
       end
@@ -58,7 +58,7 @@ module OkComputer
           allow(subject).to receive(:perform_request).and_raise(HttpCheck::ConnectionFailed, error_message)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Error: '#{error_message}'" }
       end
     end

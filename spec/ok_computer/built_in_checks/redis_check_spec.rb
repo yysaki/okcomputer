@@ -48,7 +48,7 @@ module OkComputer
           }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Connected to redis, 1003.84K used memory, uptime 272 secs, 2 connected client(s)" }
       end
 
@@ -59,7 +59,7 @@ module OkComputer
           allow(subject).to receive(:redis_info).and_raise(RedisCheck::ConnectionFailed, error_message)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Error: '#{error_message}'" }
       end
     end

@@ -35,12 +35,12 @@ module OkComputer
           allow(File).to receive(:stat).with(dir).and_return(file_stat)
         end
         context 'desired: writable' do
-          it { is_expected.to be_successful }
+          it { is_expected.to be_successful_check }
           it { is_expected.to have_message "Directory '#{dir}' is writable (as expected)." }
         end
         context 'desired: not writable' do
           subject { described_class.new(dir, false) }
-          it { is_expected.not_to be_successful }
+          it { is_expected.not_to be_successful_check }
           it { is_expected.to have_message "Directory '#{dir}' is writable (undesired)." }
         end
       end
@@ -53,11 +53,11 @@ module OkComputer
         end
         context 'desired: not writable' do
           subject { described_class.new(dir, false) }
-          it { is_expected.to be_successful }
+          it { is_expected.to be_successful_check }
           it { is_expected.to have_message "Directory '#{dir}' is NOT writable (as expected)." }
         end
         context 'desired: writable' do
-          it { is_expected.not_to be_successful }
+          it { is_expected.not_to be_successful_check }
           it { is_expected.to have_message "Directory '#{dir}' is not writable." }
         end
       end
@@ -68,7 +68,7 @@ module OkComputer
           allow(File).to receive(:exist?).with(dir).and_return(true)
           allow(File).to receive(:stat).with(dir).and_return(file_stat)
         end
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Directory '#{dir}' is not readable." }
       end
 
@@ -78,7 +78,7 @@ module OkComputer
           allow(File).to receive(:exist?).with(dir).and_return(true)
           allow(File).to receive(:stat).with(dir).and_return(file_stat)
         end
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "'#{dir}' is not a directory." }
       end
 
@@ -86,7 +86,7 @@ module OkComputer
         before do
           allow(File).to receive(:exist?).with(dir).and_return(false)
         end
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Directory '#{dir}' does not exist." }
       end
     end

@@ -15,7 +15,7 @@ module OkComputer
           expect(subject).to receive(:schema_version) { version }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Schema version: #{version}" }
       end
 
@@ -24,7 +24,7 @@ module OkComputer
           expect(subject).to receive(:schema_version).and_raise(ActiveRecordCheck::ConnectionFailed, error_message)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Error: '#{error_message}'" }
       end
     end

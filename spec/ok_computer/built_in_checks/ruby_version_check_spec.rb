@@ -7,7 +7,7 @@ module OkComputer
     end
 
     context "#check" do
-      it { is_expected.to be_successful }
+      it { is_expected.to be_successful_check }
       it { is_expected.to have_message "Ruby #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}" }
     end
   end

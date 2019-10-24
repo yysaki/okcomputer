@@ -33,7 +33,7 @@ module OkComputer
           expect(subject).to receive(:stats) { stats }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Cache is available (#{stats})" }
       end
 
@@ -42,7 +42,7 @@ module OkComputer
           expect(subject).to receive(:stats).and_raise(CacheCheck::ConnectionFailed, error_message)
         end
 
-        it {is_expected.not_to be_successful }
+        it {is_expected.not_to be_successful_check }
         it {is_expected.to have_message "Error: '#{error_message}'" }
       end
     end

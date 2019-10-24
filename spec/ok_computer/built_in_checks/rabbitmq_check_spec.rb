@@ -67,7 +67,7 @@ module OkComputer
             allow(subject).to receive(:connection_status).and_return(:open)
           end
 
-          it { is_expected.to be_successful }
+          it { is_expected.to be_successful_check }
           it { is_expected.to have_message "Rabbit Connection Status: (open)" }
         end
       end
@@ -79,7 +79,7 @@ module OkComputer
           allow_any_instance_of(Bunny).to receive(:start).and_raise(Bunny::TCPConnectionFailedForAllHosts, error_message)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Error: '#{error_message}'" }
       end
     end

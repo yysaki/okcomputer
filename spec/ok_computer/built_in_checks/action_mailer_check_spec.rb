@@ -59,7 +59,7 @@ module OkComputer
           expect(TCPSocket).to receive(:new).with('localhost', 25).and_return(double(:socket, :close => true))
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "ActionMailer::Base check to localhost:25 successful" }
       end
 
@@ -67,7 +67,7 @@ module OkComputer
         let(:amcheck) { described_class.new(ActionMailerSubclass) }
         it 'is not successful' do
           expect(amcheck).to receive(:tcp_socket_request).and_raise(Errno::ECONNREFUSED)
-          expect(amcheck).not_to be_successful
+          expect(amcheck).not_to be_successful_check
         end
         it 'has expected failure message' do
           expect(amcheck).to receive(:tcp_socket_request).and_raise(Errno::ECONNREFUSED)

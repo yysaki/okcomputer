@@ -15,7 +15,7 @@ module OkComputer
           expect(subject).to receive(:is_current?) { true }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Schema is up to date" }
       end
 
@@ -24,7 +24,7 @@ module OkComputer
           expect(subject).to receive(:is_current?).and_raise(SequelCheck::ConnectionFailed, error_message)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Error: '#{error_message}'" }
       end
     end
