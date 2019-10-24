@@ -18,7 +18,7 @@ module OkComputer
           expect(Rails.cache).to receive(:read).and_return(value)
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Able to read and write via File store" }
       end
 
@@ -28,7 +28,7 @@ module OkComputer
           expect(Rails.cache).to receive(:write).and_raise(error)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Connection failure: #{error}" }
       end
 
@@ -39,7 +39,7 @@ module OkComputer
           expect(Rails.cache).to receive(:read).and_raise(error)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Connection failure: #{error}" }
       end
 
@@ -50,7 +50,7 @@ module OkComputer
           expect(Rails.cache).to receive(:read).and_return(incorrect_value)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Value read from the cache does not match the value written" }
       end
     end

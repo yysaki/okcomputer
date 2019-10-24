@@ -45,7 +45,7 @@ module OkComputer
             }
           end
 
-          it { is_expected.to be_successful }
+          it { is_expected.to be_successful_check }
           it { is_expected.to have_message "Connected to elasticseach cluster 'elasticsearch', 1 nodes, status 'yellow'" }
         end
 
@@ -58,7 +58,7 @@ module OkComputer
             }
           end
 
-          it { is_expected.not_to be_successful }
+          it { is_expected.not_to be_successful_check }
           it { is_expected.to have_message "Connected to elasticseach cluster 'elasticsearch', 1 nodes, status 'red'" }
         end
       end
@@ -70,7 +70,7 @@ module OkComputer
           allow(subject).to receive(:cluster_health).and_raise(HttpCheck::ConnectionFailed, error_message)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Error: '#{error_message}'" }
       end
     end

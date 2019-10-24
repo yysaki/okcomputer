@@ -21,7 +21,7 @@ RSpec::Matchers.define :have_message do |message|
   end
 end
 
-RSpec::Matchers.define :be_successful do |message|
+RSpec::Matchers.define :be_successful_check do |message|
   match do |actual|
     actual.check
     actual.success?

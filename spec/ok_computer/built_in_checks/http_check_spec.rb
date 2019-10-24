@@ -40,7 +40,7 @@ module OkComputer
           allow(subject).to receive(:perform_request).and_return("foo")
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "HTTP check successful" }
       end
 
@@ -51,7 +51,7 @@ module OkComputer
           allow(subject).to receive(:perform_request).and_raise(HttpCheck::ConnectionFailed, error_message)
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Error: '#{error_message}'" }
       end
     end

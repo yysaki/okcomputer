@@ -15,7 +15,7 @@ module OkComputer
           allow(subject).to receive(:queued?) { false }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Resque is working" }
       end
 
@@ -29,7 +29,7 @@ module OkComputer
             allow(subject).to receive(:working?) { true }
           end
 
-          it { is_expected.to be_successful }
+          it { is_expected.to be_successful_check }
           it { is_expected.to have_message "Resque is working" }
         end
 
@@ -38,7 +38,7 @@ module OkComputer
             allow(subject).to receive(:working?) { false }
           end
 
-          it { is_expected.not_to be_successful }
+          it { is_expected.not_to be_successful_check }
           it { is_expected.to have_message "Resque is DOWN" }
         end
       end

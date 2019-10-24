@@ -48,7 +48,7 @@ module OkComputer
           allow(subject).to receive(:size) { 99 }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Delayed Jobs with priority lower than '#{subject.priority}' at reasonable level (#{subject.size})"}
       end
 
@@ -57,7 +57,7 @@ module OkComputer
           allow(subject).to receive(:size) { 123 }
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Delayed Jobs with priority lower than '#{subject.priority}' is #{subject.size - subject.threshold} over threshold! (#{subject.size})"}
       end
 
@@ -68,7 +68,7 @@ module OkComputer
             allow(subject).to receive(:size) { 89 }
           end
 
-          it { is_expected.to be_successful }
+          it { is_expected.to be_successful_check }
           it { is_expected.to have_message "Delayed Jobs with priority higher than '#{subject.priority}' at reasonable level (#{subject.size})"}
         end
 
@@ -77,7 +77,7 @@ module OkComputer
             allow(subject).to receive(:size) { 123 }
           end
 
-          it { is_expected.not_to be_successful }
+          it { is_expected.not_to be_successful_check }
           it { is_expected.to have_message "Delayed Jobs with priority higher than '#{subject.priority}' is #{subject.size - subject.threshold} over threshold! (#{subject.size})"}
         end
       end

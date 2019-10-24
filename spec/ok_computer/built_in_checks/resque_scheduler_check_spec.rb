@@ -15,7 +15,7 @@ module OkComputer
           allow(subject).to receive(:working?) { true }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Resque Scheduler is UP" }
       end
 
@@ -24,7 +24,7 @@ module OkComputer
           allow(subject).to receive(:working?) { false }
         end
 
-        it { is_expected.not_to be_successful }
+        it { is_expected.not_to be_successful_check }
         it { is_expected.to have_message "Resque Scheduler is DOWN" }
       end
     end

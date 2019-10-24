@@ -63,7 +63,7 @@ module OkComputer
           expect(subject).to receive(:primary_status) { primary_status }
         end
 
-        it { is_expected.to be_successful }
+        it { is_expected.to be_successful_check }
         it { is_expected.to have_message "Connected to 3 nodes in mongodb replica set '#{replica_set_name}'" }
       end
 
@@ -73,7 +73,7 @@ module OkComputer
           expect(subject).to receive(:secondary_status).and_raise(MongoidReplicaSetCheck::ConnectionFailed, error_message)
         end
 
-        it {is_expected.not_to be_successful }
+        it {is_expected.not_to be_successful_check }
         it {is_expected.to have_message "Error: '#{error_message}'" }
       end
 
@@ -82,7 +82,7 @@ module OkComputer
           expect(Mongoid::Sessions).to receive(:with_name).with(:default).and_raise(StandardError)
         end
 
-        it {is_expected.not_to be_successful }
+        it {is_expected.not_to be_successful_check }
         it {is_expected.to have_message "Error: 'undefined method `cluster' for nil:NilClass'" }
       end
     end
