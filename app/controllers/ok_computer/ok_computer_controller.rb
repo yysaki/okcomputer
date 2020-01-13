@@ -42,7 +42,7 @@ module OkComputer
     end
 
     def status_code(check)
-      check.success? ? :ok : :error
+      check.success? ? :ok : :internal_server_error
     end
 
     def authenticate
