@@ -6,7 +6,7 @@ module OkComputer
         connected = Neo4j::Session.current.connection.head.success?
         url = Neo4j::Session.current.connection.url_prefix.to_s
         mark_message "Connected to neo4j on #{url}" if connected
-      rescue Faraday::Error::ConnectionFailed => e
+      rescue Faraday::ConnectionFailed => e
         mark_failure
         mark_message "Error: #{e.message}"
       end
