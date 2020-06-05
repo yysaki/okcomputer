@@ -1,15 +1,13 @@
 require "rails_helper"
 
-# Stubbing the constant out; will exist in apps which have Neo4j loaded
+# Stubbing the constants out; will exist in apps which have Neo4j loaded
 module Neo4j
   class Session
   end
 end
 
 module Faraday
-  module Error
-    class ConnectionFailed < StandardError; end
-  end
+  class ConnectionFailed < StandardError; end
 end
 
 module OkComputer
@@ -32,7 +30,7 @@ module OkComputer
 
       context "with an unsuccessful connection" do
         let(:error_message) { "connection refused: localhost:7474" }
-        let(:error) { Faraday::Error::ConnectionFailed.new(error_message) }
+        let(:error) { Faraday::ConnectionFailed.new(error_message) }
 
         before do
           allow(Neo4j::Session).to receive_message_chain("current.connection.head.success?").and_raise(error)
