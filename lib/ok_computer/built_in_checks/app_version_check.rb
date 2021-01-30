@@ -5,6 +5,21 @@ module OkComputer
   # * Otherwise, checks for Capistrano's REVISION file in the app root.
   # * Failing these, the check fails
   class AppVersionCheck < Check
+    attr_accessor :file
+    attr_accessor :env
+    attr_accessor :transform
+
+    # Public: Initialize a check for a backed-up Sidekiq queue
+    #
+    # file - The path of the version file to check
+    # env - The key in ENV to check for a revision SHA
+    # transform - The block to optionally transform the version string
+    def initialize(file: "REVISION", env: "SHA", &transform)
+      self.file = file
+      self.env = env
+      self.transform = transform || proc { |v| v }
+    end
+
     # Public: Return the application version
     def check
       mark_message "Version: #{version}"
@@ -17,21 +32,20 @@ module OkComputer
     #
     # Returns a String
     def version
-      version_from_env || version_from_file || raise(UnknownRevision)
+      transform.call(version_from_env || version_from_file || raise(UnknownRevision))
     end
 
     private
 
     # Private: Version stored in environment variable
     def version_from_env
-      ENV["SHA"]
+      ENV[env]
     end
 
     # Private: Version stored in Capistrano revision file
     def version_from_file
-      if File.exist?(Rails.root.join("REVISION"))
-        File.read(Rails.root.join("REVISION")).chomp
-      end
+      path = Rails.root.join(file)
+      File.read(path).chomp if File.exist?(path)
     end
 
     UnknownRevision = Class.new(StandardError)
