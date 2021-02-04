@@ -45,6 +45,20 @@ module OkComputer
         end
       end
 
+      context "with a custom VERSION environment variable set" do
+        subject { OkComputer::AppVersionCheck.new(env: "VERSION") }
+
+        around(:example) do |example|
+          with_env("VERSION" => version) do
+            example.run
+          end
+        end
+
+        it "returns the contents of SHA" do
+          expect(subject.version).to eq(version)
+        end
+      end
+
       context "with a REVISION file at the root of the app directory" do
         around(:example) do |example|
           with_env("SHA" => nil) do
@@ -55,6 +69,34 @@ module OkComputer
         before do
           expect(File).to receive(:exist?).with(revision_path).and_return(true)
           expect(File).to receive(:read).with(revision_path).and_return("#{version}\n")
+        end
+
+        it "returns the contents of the file" do
+          expect(subject.version).to eq(version)
+        end
+      end
+
+      context "with a custom version file at the root of the app directory" do
+        subject { OkComputer::AppVersionCheck.new(file: "public/version.txt") }
+        let(:revision_path) { Rails.root.join("public/version.txt") }
+
+        before do
+          expect(File).to receive(:exist?).with(revision_path).and_return(true)
+          expect(File).to receive(:read).with(revision_path).and_return("#{version}\n")
+        end
+
+        it "returns the contents of the file" do
+          expect(subject.version).to eq(version)
+        end
+      end
+
+      context "with a custom transform and file at the root of the app directory" do
+        subject { OkComputer::AppVersionCheck.new(file: "version.txt") { |v| v.sub("Version: ", "") } }
+        let(:revision_path) { Rails.root.join("version.txt") }
+
+        before do
+          expect(File).to receive(:exist?).with(revision_path).and_return(true)
+          expect(File).to receive(:read).with(revision_path).and_return("Version: #{version}\n")
         end
 
         it "returns the contents of the file" do
