@@ -1,5 +1,5 @@
 [![Code Climate](https://codeclimate.com/github/sportngin/okcomputer.svg)](https://codeclimate.com/github/sportngin/okcomputer)
-[![Build Status](https://travis-ci.org/sportngin/okcomputer.svg)](https://travis-ci.org/sportngin/okcomputer)
+[![Build Status](https://github.com/sportngin/okcomputer/workflows/CI/badge.svg)](https://github.com/sportngin/okcomputer/actions?query=workflow%3ACI)
 
 # OK Computer
 
