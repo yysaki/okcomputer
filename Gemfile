@@ -13,6 +13,8 @@ gem "loofah", "2.20.0" if RUBY_VERSION < "2.5"
 
 gem "test-unit", "~> 3.0" if RUBY_VERSION >= "2.2" && RAILS_VERSION == "3.2"
 
+gem "rspec-rails", "~> 6.0" if RAILS_VERSION >= "7.0"
+
 gem 'sprockets', '~>3.0'
 
 gemspec
